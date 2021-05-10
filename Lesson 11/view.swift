@@ -8,7 +8,6 @@
 import UIKit
 
 protocol TapDelegate: NSObjectProtocol {
-    //func prr()
     func viewPressed (_ vp: view)
     
 }

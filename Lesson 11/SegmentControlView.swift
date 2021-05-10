@@ -7,7 +7,15 @@
 
 import UIKit
 
+protocol ChangeDelegate: NSObjectProtocol {
+    
+      func changePressed (_ ch: SegmentControlView)
+}
+
+
 class SegmentControlView: UIView {
+    
+    var changeDelegate : ChangeDelegate?
 
     var isSetuped = false
     var buttomSize = 50
@@ -26,16 +34,24 @@ class SegmentControlView: UIView {
         firstbuttom.frame = CGRect(x: Int(w)/2 - buttomLenth , y: Int(h)/2, width: buttomLenth, height: buttomSize)
         secondbuttom.frame = CGRect(x: Int(w)/2, y: Int(h)/2, width: buttomLenth, height: buttomSize)
         
+        firstbuttom.addTarget(self, action: #selector(firstchange), for: .touchUpInside)
+        secondbuttom.addTarget(self, action: #selector(secondchange), for: .touchUpInside)
+        
         firstbuttom.backgroundColor = firstbuttomColor
         secondbuttom.backgroundColor = secondButtomColor
         
         addSubview(firstbuttom)
         addSubview(secondbuttom)
+        
     }
     
-    
-    
-    
-    
+    @objc func firstchange() {
+        firstbuttom.backgroundColor = UIColor.red
+        secondbuttom.backgroundColor = UIColor.green
+    }
+    @objc func secondchange() {
+        firstbuttom.backgroundColor = UIColor.green
+        secondbuttom.backgroundColor = UIColor.red
+    }
 
 }

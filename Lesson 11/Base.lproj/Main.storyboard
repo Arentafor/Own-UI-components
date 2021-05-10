@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UH8-P0-Am4" customClass="SegmentControlView" customModule="Lesson_11" customModuleProvider="target">
-                                <rect key="frame" x="20" y="44" width="374" height="485"/>
+                                <rect key="frame" x="20" y="205.5" width="374" height="485"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="485" id="Wqx-Xs-7Ne"/>
@@ -28,7 +28,7 @@
                         <viewLayoutGuide key="safeArea" id="PSq-Mt-r1c"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="UH8-P0-Am4" firstAttribute="centerY" secondItem="p7T-Pm-whP" secondAttribute="centerY" constant="-161.5" id="3Ab-gZ-5te"/>
+                            <constraint firstItem="UH8-P0-Am4" firstAttribute="centerY" secondItem="p7T-Pm-whP" secondAttribute="centerY" id="3Ab-gZ-5te"/>
                             <constraint firstItem="UH8-P0-Am4" firstAttribute="centerX" secondItem="p7T-Pm-whP" secondAttribute="centerX" id="ua3-du-KnM"/>
                         </constraints>
                     </view>
