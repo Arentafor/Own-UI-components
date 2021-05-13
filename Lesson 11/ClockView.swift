@@ -54,17 +54,29 @@ import UIKit
     
     
     
- 
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    
+    
+    
+    override func prepareForInterfaceBuilder() {
+            super.prepareForInterfaceBuilder()
+            updateViews()
+           }
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        updateViews()
+        timerForSecs()
+        timerForMins()
+        timerForHours()
+        }
+    
+    
+    func updateViews() {
         
         hourLine.layer.anchorPoint = CGPoint(x: 0.5, y: 1)
         minLine.layer.anchorPoint = CGPoint(x: 0.5, y: 1)
         secLine.layer.anchorPoint = CGPoint(x: 0.5, y: 1)
-        
-       
-
-
         
         let w = frame.size.width
         let h = frame.size.height
@@ -93,7 +105,6 @@ import UIKit
         
         for output in [topMarker,leftMarker,rightMarker,bottomMarker,hourLine,minLine,secLine,rounded] {
             addSubview(output)
-
         }
         
 
@@ -105,6 +116,27 @@ import UIKit
         if isSetuped {return}
         isSetuped = true
     }
+
+    func timerForSecs() {
+        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {_ in
+            if self.secs < 12 {self.secs += 1}
+            else { self.secs = 1}
+        }
+    }
+    
+    func timerForMins() {
+        _ = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) {_ in if self.mins < 12 {self.mins += 1}
+        else { self.mins = 1}
+        }
+    }
+    
+    func timerForHours() {
+        _ = Timer.scheduledTimer(withTimeInterval: 360.0, repeats: true) {_ in if self.hours < 12 {self.hours += 1}
+        else { self.hours = 1}
+        }
+    }
+    
+    
     
     
     func updateHours() {
