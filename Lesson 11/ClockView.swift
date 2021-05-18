@@ -30,14 +30,11 @@ import UIKit
     
     var roundedColor = UIColor.black
     
-    var hours:CGFloat = 5 {
-        didSet {updateHours() }}
-    
-    var mins:CGFloat = 4 {
-        didSet {updateMins() }}
+    var hours:CGFloat = 0
 
-    var secs:CGFloat = 7 {
-        didSet {updateSecs() }}
+    var mins:CGFloat = 0
+
+    var secs:CGFloat = 0
 
     
     
@@ -59,7 +56,7 @@ import UIKit
     
     override func prepareForInterfaceBuilder() {
             super.prepareForInterfaceBuilder()
-            updateViews()
+
            }
     
     
@@ -69,10 +66,13 @@ import UIKit
         timerForSecs()
         timerForMins()
         timerForHours()
-        }
+        
+        
+    }
     
     
     func updateViews() {
+  
         
         hourLine.layer.anchorPoint = CGPoint(x: 0.5, y: 1)
         minLine.layer.anchorPoint = CGPoint(x: 0.5, y: 1)
@@ -91,11 +91,7 @@ import UIKit
         secLine.backgroundColor = secLineColor
         rounded.backgroundColor = roundedColor
         rounded.layer.cornerRadius = 10
-        
-        updateHours()
-        updateMins()
-        updateSecs()
-        
+
         topMarker.frame = CGRect(x: Int(w) / 2 - markerSize / 2, y: 0, width: markerSize, height: markerLenth)
         leftMarker.frame = CGRect(x: 0, y: Int(h) / 2 - markerSize / 2, width: markerLenth, height: markerSize)
         rightMarker.frame = CGRect(x: Int(w) - markerLenth, y: Int(h) / 2 - markerSize / 2, width: markerLenth, height: markerSize)
@@ -106,9 +102,7 @@ import UIKit
         for output in [topMarker,leftMarker,rightMarker,bottomMarker,hourLine,minLine,secLine,rounded] {
             addSubview(output)
         }
-        
-
-        
+       
         for v in [topMarker,leftMarker,rightMarker,bottomMarker] {
             v.backgroundColor = markerColor
         }
@@ -117,41 +111,39 @@ import UIKit
         isSetuped = true
     }
 
-    func timerForSecs() {
-        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {_ in
-            if self.secs < 12 {self.secs += 1}
-            else { self.secs = 1}
+    func timerForHours() {
+        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+            let date = NSDate()
+            let currentHour = DateFormatter()
+            currentHour.dateFormat = "hh"
+            let hourString = Int(currentHour.string(from: date as Date))!
+            self.hours = CGFloat(hourString)
+            let angleH = CGFloat.pi * 2 * (CGFloat(hourString) / CGFloat(12))
+            self.hourLine.transform = CGAffineTransform(rotationAngle: angleH)
         }
     }
     
     func timerForMins() {
-        _ = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) {_ in if self.mins < 12 {self.mins += 1}
-        else { self.mins = 1}
+        _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {_ in
+            let date = NSDate()
+            let currentMin = DateFormatter()
+            currentMin.dateFormat = "mm"
+            let minString = Int(currentMin.string(from: date as Date))!
+            self.mins = CGFloat(minString)
+            let angleM = CGFloat.pi * 2 * (CGFloat(minString) / CGFloat(60))
+            self.minLine.transform = CGAffineTransform(rotationAngle: angleM)
         }
     }
     
-    func timerForHours() {
-        _ = Timer.scheduledTimer(withTimeInterval: 360.0, repeats: true) {_ in if self.hours < 12 {self.hours += 1}
-        else { self.hours = 1}
+    func timerForSecs() {
+        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {_ in
+            let date = NSDate()
+            let currentSec = DateFormatter()
+            currentSec.dateFormat = "ss"
+            let secString = Int(currentSec.string(from: date as Date))!
+            self.secs = CGFloat(secString)
+            let angleS = CGFloat.pi * 2 * (CGFloat(secString) / CGFloat(60))
+            self.secLine.transform = CGAffineTransform(rotationAngle: angleS)
         }
     }
-    
-    
-    
-    
-    func updateHours() {
-        let angleh = CGFloat.pi * 2 * (hours / CGFloat(12))
-        hourLine.transform = CGAffineTransform(rotationAngle: angleh)
-    }
-    
-    func updateMins() {
-        let anglem = CGFloat.pi * 2 * (mins / CGFloat(12))
-        minLine.transform = CGAffineTransform(rotationAngle: anglem)
-    }
-    
-    func updateSecs() {
-        let angles = CGFloat.pi * 2 * (secs / CGFloat(12))
-        secLine.transform = CGAffineTransform(rotationAngle: angles)
-    }
-
 }
